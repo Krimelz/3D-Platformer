@@ -9,10 +9,10 @@ public class CameraFollow : MonoBehaviour
     [Range(0.01f, 10f)]
     public float smoothSpeed = 2f;
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 targetPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
+        Vector3 smoothedPosition = Vector3.LerpUnclamped(transform.position, targetPosition, smoothSpeed * Time.fixedDeltaTime);
         transform.position = smoothedPosition;
 
         //transform.LookAt(target);
