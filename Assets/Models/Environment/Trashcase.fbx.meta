@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d79133b2651d48a40b2935080dd48ae6
+guid: 9271c86b97cbe0746a262cd914db43be
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Low Poly Material
-    second: {fileID: 2100000, guid: 52a748e56cc13c148a89822dfa6f50c2, type: 2}
+      name: Trashcase
+    second: {fileID: 2100000, guid: be1e109e78c4c564682c84b8c0131e0e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
