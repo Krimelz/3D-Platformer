@@ -6,6 +6,7 @@ public class PlayerControls : MonoBehaviour
 {
     public float movementSpeed = 3f;
     public float jumpForce = 200f;
+    public GameObject shellPrefab;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -25,8 +26,7 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         Jump();
-
-        Debug.Log(rbody.velocity.x);
+        Shoot();
     }
 
     private void FixedUpdate()
@@ -91,6 +91,16 @@ public class PlayerControls : MonoBehaviour
 
     private void Shoot()
     {
-        // TODO: Shoot to mouse direction
+        if (Input.GetMouseButtonDown(0))
+        {
+            float enter;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            new Plane(-Vector3.forward, transform.position).Raycast(ray, out enter);
+            Vector3 target = ray.GetPoint(enter);
+
+            GameObject shell = Instantiate(shellPrefab, transform.position, Quaternion.identity);
+            shell.transform.LookAt(target, shell.transform.right);
+            shell.GetComponent<Rigidbody>().AddForce(shell.transform.forward * 75f, ForceMode.VelocityChange);
+        }
     }
 }

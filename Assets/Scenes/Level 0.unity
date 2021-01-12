@@ -1958,6 +1958,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7054346042038164912, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: m_Constraints
+      value: 88
+      objectReference: {fileID: 0}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: shell
+      value: 
+      objectReference: {fileID: 1678261795499696590, guid: 73ca9738c3be65e4299740ace14297c3, type: 3}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: shellPrefab
+      value: 
+      objectReference: {fileID: 1678261795499696590, guid: 73ca9738c3be65e4299740ace14297c3, type: 3}
     - target: {fileID: 7380462062623214185, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2004,6 +2016,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865391098713542867, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865391098713542867, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
