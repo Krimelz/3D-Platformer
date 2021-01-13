@@ -1451,6 +1451,22 @@ PrefabInstance:
       propertyPath: shellPrefab
       value: 
       objectReference: {fileID: 1678261795499696590, guid: 73ca9738c3be65e4299740ace14297c3, type: 3}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: groundCheckCenter
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: groundCheckSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: groundCheckSize.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7054346042038164914, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
+      propertyPath: groundCheckSize.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7380462062623214185, guid: a751a1893bc892b4c822b0bf31b918d3, type: 3}
       propertyPath: m_RootOrder
       value: 2

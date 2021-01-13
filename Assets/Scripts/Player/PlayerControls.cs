@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public float movementSpeed = 3f;
+    public float movementSpeed = 500f;
     public float jumpForce = 200f;
+    public float shellPower = 25f;
     public GameObject shellPrefab;
+    public Vector3 groundCheckSize;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -50,8 +52,7 @@ public class PlayerControls : MonoBehaviour
 
     private void CheckGround()
     {
-        // TODO: Cast box 
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 3.8f, groundLayer);
+        isGrounded = Physics.BoxCast(transform.position, groundCheckSize, -transform.up, Quaternion.identity, 4f, groundLayer);
 
         if (isGrounded)
         {
