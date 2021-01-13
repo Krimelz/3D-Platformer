@@ -101,7 +101,6 @@ public class PlayerControls : MonoBehaviour
 
             GameObject shell = Instantiate(shellPrefab, transform.position, Quaternion.identity);
             shell.transform.LookAt(target, shell.transform.right);
-            shell.GetComponent<Rigidbody>().AddForce(shell.transform.forward * 75f, ForceMode.VelocityChange);
         }
     }
 }
