@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 500f;
     public float jumpForce = 200f;
     public int health = 100;
+    public float shootingDelay = 1f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public Vector3 groundCheckSize;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rbody;
     private Animator anim;
     private float dirX;
+    private float shootingTime;
     private bool isGrounded = false;
     private bool isDead = false;
 
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        shootingTime = shootingDelay;
     }
 
     void Update()
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -117,8 +120,14 @@ public class PlayerController : MonoBehaviour
                 bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
 
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            if (shootingTime <= 0)
+            {
+                Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                shootingTime = shootingDelay;
+            }
         }
+
+        shootingTime -= Time.deltaTime;
     }
 
     public void TakeDamage(int damage)
