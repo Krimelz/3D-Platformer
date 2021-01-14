@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Gangster
   m_EditorClassIdentifier: 
   health: 100
-  movementSpeed: 10
+  movementSpeed: 300
   lookRadius: 20
-  attackDistance: 15
+  attackDistance: 4
+  attackDelay: 1
   damage: 20

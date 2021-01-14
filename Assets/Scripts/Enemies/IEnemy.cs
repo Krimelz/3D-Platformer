@@ -5,6 +5,7 @@ public interface IEnemy
     public float MovementSpeed { get; set; }
     public float LookRadius { get; set; }
     public float AttackDistance { get; set; }
+    public float AttackDelay { get; set; }
 
     public void Move();
     public void Attack();

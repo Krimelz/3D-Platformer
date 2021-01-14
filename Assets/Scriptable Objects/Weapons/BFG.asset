@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f8612d833c7a24aa834fa4005d0026, type: 3}
   m_Name: BFG
   m_EditorClassIdentifier: 
+  shell: {fileID: 1678261795499696590, guid: 73ca9738c3be65e4299740ace14297c3, type: 3}
   power: 70
   damage: 25

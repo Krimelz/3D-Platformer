@@ -7,7 +7,8 @@ public class PlayerControls : MonoBehaviour
     public float movementSpeed = 500f;
     public float jumpForce = 200f;
     public float shellPower = 25f;
-    public GameObject shellPrefab;
+    public int health = 100;
+    public WeaponData weapon;
     public Vector3 groundCheckSize;
 
     [SerializeField]
@@ -15,8 +16,10 @@ public class PlayerControls : MonoBehaviour
     private Rigidbody rbody;
     private Animator anim;
     private Camera cam;
+    private GameObject shell;
     private float dirX;
     private bool isGrounded = false;
+    private bool isDead = false;
 
     void Start()
     {
@@ -27,12 +30,22 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+        { 
+            return;
+        }
+
         Jump();
         Shoot();
     }
 
     private void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         Move();
     }
 
@@ -99,8 +112,23 @@ public class PlayerControls : MonoBehaviour
             new Plane(-Vector3.forward, transform.position).Raycast(ray, out enter);
             Vector3 target = ray.GetPoint(enter);
 
-            GameObject shell = Instantiate(shellPrefab, transform.position, Quaternion.identity);
+            GameObject shell = Instantiate(weapon.shell, transform.position, Quaternion.identity);
             shell.transform.LookAt(target, shell.transform.right);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
     }
 }
