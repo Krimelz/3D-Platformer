@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 500f;
     public float jumpForce = 200f;
-    public float shellPower = 25f;
     public int health = 100;
-    public WeaponData weapon;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
     public Vector3 groundCheckSize;
 
     [SerializeField]
     private LayerMask groundLayer;
     private Rigidbody rbody;
     private Animator anim;
-    private Camera cam;
-    private GameObject shell;
     private float dirX;
     private bool isGrounded = false;
     private bool isDead = false;
@@ -25,7 +23,6 @@ public class PlayerControls : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        cam = Camera.main;
     }
 
     void Update()
@@ -105,15 +102,22 @@ public class PlayerControls : MonoBehaviour
 
     private void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            float enter;
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            new Plane(-Vector3.forward, transform.position).Raycast(ray, out enter);
-            Vector3 target = ray.GetPoint(enter);
+            if (Input.GetKey(KeyCode.W))
+            {
+                bulletSpawnPoint.localRotation = Quaternion.Euler(-45f, 0f, 0f);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                bulletSpawnPoint.localRotation = Quaternion.Euler(45f, 0f, 0f);
+            }
+            else
+            {
+                bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            }
 
-            GameObject shell = Instantiate(weapon.shell, transform.position, Quaternion.identity);
-            shell.transform.LookAt(target, shell.transform.right);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         }
     }
 

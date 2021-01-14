@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gangster : MonoBehaviour, IEnemy
+public class SimpleEnemy : MonoBehaviour, IEnemy
 {
-    public EnemyData enemy;
-    public int Health { get; set; }
-    public float MovementSpeed { get; set; }
-    public float LookRadius { get; set; }
-    public float AttackDistance { get; set; }
-    public float AttackDelay { get; set; }
+    public int health;
+    public float movementSpeed;
+    public float lookRadius;
+    public int attackDamage;
+    public float attackDistance;
+    public float attackDelay;
 
     private GameObject player;
     private Rigidbody rbody;
@@ -18,15 +18,9 @@ public class Gangster : MonoBehaviour, IEnemy
 
     void Start()
     {
-        Health = enemy.health;
-        MovementSpeed = enemy.movementSpeed;
-        LookRadius = enemy.lookRadius;
-        AttackDistance = enemy.attackDistance;
-        AttackDelay = enemy.attackDelay;
-
         player = GameObject.FindGameObjectWithTag("Player");
         rbody = GetComponent<Rigidbody>();
-        attackTime = AttackDelay;
+        attackTime = attackDelay;
     }
 
     void Update()
@@ -43,42 +37,40 @@ public class Gangster : MonoBehaviour, IEnemy
 
     public void Attack()
     {
-        if (distanceToPlayer <= AttackDistance)
+        if (distanceToPlayer <= attackDistance)
         {
             // Play attack animation
             if (attackTime <= 0)
             {
                 OnAttacked();
-                attackTime = AttackDelay;
+                attackTime = attackDelay;
             }
-            else
-            {
-                attackTime -= Time.deltaTime;
-            }
+
+            attackTime -= Time.deltaTime;
         }
     }
 
     // TODO: Call when attack animation end
     public void OnAttacked()
     {
-        player.GetComponent<PlayerControls>().TakeDamage(enemy.damage);
+        player.GetComponent<PlayerController>().TakeDamage(attackDamage);
     }
 
     public void Move()
     {
-        if (distanceToPlayer <= LookRadius && distanceToPlayer >= AttackDistance)
+        if (distanceToPlayer <= lookRadius && distanceToPlayer >= attackDistance)
         {
             int dir = transform.position.x > player.transform.position.x ? -1 : 1;
-            Vector3 movement = new Vector3(dir * MovementSpeed * Time.fixedDeltaTime, 0f, 0f);
+            Vector3 movement = new Vector3(dir * movementSpeed * Time.fixedDeltaTime, 0f, 0f);
             rbody.velocity = movement;
         }
     }
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        health -= damage;
         
-        if (Health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -92,8 +84,8 @@ public class Gangster : MonoBehaviour, IEnemy
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, enemy.lookRadius);
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, enemy.attackDistance);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 }

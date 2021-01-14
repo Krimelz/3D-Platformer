@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public WeaponData weaponData;
+    public int damage;
+    public float power;
     public Rigidbody rbody;
     void Start()
     {
-        rbody.AddForce(transform.forward * weaponData.power, ForceMode.VelocityChange);
+        rbody.AddForce(transform.forward * power, ForceMode.VelocityChange);
         Destroy(gameObject, 5f);
     }
 
@@ -16,7 +17,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            collision.collider.GetComponent<IEnemy>().TakeDamage(weaponData.damage);
+            collision.collider.GetComponent<IEnemy>().TakeDamage(damage);
         }
 
         Destroy(gameObject);
