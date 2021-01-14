@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public static Action<int> healthUpdate;
+
     public float movementSpeed = 500f;
     public float jumpForce = 200f;
     public int health = 100;
@@ -136,8 +139,11 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
+            health = 0;
             Die();
         }
+
+        healthUpdate?.Invoke(health);
     }
 
     private void Die()
