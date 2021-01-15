@@ -13,13 +13,17 @@ public class PlayerController : MonoBehaviour
     public float shootingDelay = 1f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
-    public Vector3 groundCheckSize;
+    public LayerMask groundLayer;
+    [Space]
+    public AudioClip moveClip;
+    public AudioClip jumpClip;
+    public AudioClip landingClip;
+    public AudioClip shootClip;
 
-    [SerializeField]
-    private LayerMask groundLayer;
     private Rigidbody rbody;
     private Animator anim;
-    private float dirX;
+    private AudioSource playerSounds;
+    private float movementDirectionX;
     private float shootingTime;
     private bool isGrounded = false;
     private bool isDead = false;
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        playerSounds = GetComponent<AudioSource>();
         shootingTime = shootingDelay;
     }
 
@@ -51,49 +56,29 @@ public class PlayerController : MonoBehaviour
 
         Move();
     }
-
     private void Flip()
     {
         // TODO: Smooth rotate player to movement direction
 
-        if (dirX < 0)
-        {
-            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-        }
-    }
-
-    private void CheckGround()
-    {
-        isGrounded = Physics.BoxCast(transform.position, groundCheckSize, -transform.up, Quaternion.identity, 4f, groundLayer);
-
-        if (isGrounded)
-        {
-            anim.SetBool("Jump", false);
-        }
+        transform.localRotation = Quaternion.Euler(0f, 90f * movementDirectionX, 0);
     }
 
     private void Move()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
+        movementDirectionX = Input.GetAxisRaw("Horizontal");
 
-        if (dirX != 0)
+        if (movementDirectionX != 0)
         {
-            anim.SetBool("Movement", true);
-            rbody.velocity = new Vector3(dirX * movementSpeed * Time.fixedDeltaTime, rbody.velocity.y);
+            anim.SetBool("Move", true);
+            rbody.velocity = new Vector3(movementDirectionX * movementSpeed * Time.fixedDeltaTime, rbody.velocity.y);
 
-            Flip(); 
+            Flip();
         }
         else
         {
-            anim.SetBool("Movement", false);
+            anim.SetBool("Move", false);
             rbody.velocity = new Vector3(0f, rbody.velocity.y);
         }
-
-        CheckGround();
     }
 
     private void Jump()
@@ -124,18 +109,25 @@ public class PlayerController : MonoBehaviour
             }
 
             if (shootingTime <= 0)
-            {
-                Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            {  
                 shootingTime = shootingDelay;
+                anim.SetTrigger("Attack");
             }
         }
 
         shootingTime -= Time.deltaTime;
     }
 
+    public void SpawnBullet()
+    {
+        Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        PlayShootSound();
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
+        anim.SetTrigger("Hit");
 
         if (health <= 0)
         {
@@ -148,6 +140,37 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
+        anim.SetBool("Die", true);
         isDead = true;
+    }
+
+    public void PlayMoveSound()
+    {
+        playerSounds.clip = moveClip;
+        playerSounds.Play();
+    }
+
+    public void PlayJumpSound()
+    {
+        playerSounds.clip = jumpClip;
+        playerSounds.Play();
+    }
+
+    public void PlayShootSound()
+    {
+        playerSounds.PlayOneShot(shootClip);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((1 << other.gameObject.layer) == groundLayer)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+            anim.SetBool("Jump", false);
+        }
     }
 }
