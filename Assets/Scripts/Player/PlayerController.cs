@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     public LayerMask groundLayer;
     [Space]
+    [Header("Player sounds")]
     public AudioClip moveClip;
     public AudioClip jumpClip;
     public AudioClip landingClip;
@@ -65,13 +66,14 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        // TODO: fix takeoff when run on slopes
         movementDirectionX = Input.GetAxisRaw("Horizontal");
 
         if (movementDirectionX != 0)
         {
             anim.SetBool("Move", true);
             rbody.velocity = new Vector3(movementDirectionX * movementSpeed * Time.fixedDeltaTime, rbody.velocity.y);
-
+            
             Flip();
         }
         else
