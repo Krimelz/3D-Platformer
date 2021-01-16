@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     public static Action<int> healthUpdate;
 
+    [Header("Player stats")]
     public float movementSpeed = 500f;
-    public float jumpForce = 200f;
+    public float jumpForce = 400f;
     public int health = 100;
-    public float shootingDelay = 1f;
+    public float shootingRate = 1f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public LayerMask groundLayer;
@@ -32,9 +33,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         playerSounds = GetComponent<AudioSource>();
-        shootingTime = shootingDelay;
+        EnemyController.attackPlayer += TakeDamage;
+        shootingTime = shootingRate;
     }
 
     void Update()
@@ -59,9 +61,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Flip()
     {
-        // TODO: Smooth rotate player to movement direction
-
-        transform.localRotation = Quaternion.Euler(0f, 90f * movementDirectionX, 0);
+        transform.localRotation = Quaternion.Euler(0f, 90f * movementDirectionX - 90f, 0);
     }
 
     private void Move()
@@ -95,26 +95,24 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.W))
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                bulletSpawnPoint.localRotation = Quaternion.Euler(-45f, 0f, 0f);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                bulletSpawnPoint.localRotation = Quaternion.Euler(45f, 0f, 0f);
-            }
-            else
-            {
-                bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            }
+            bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 45f);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, -45f);
+        }
+        else
+        {
+            bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        }
 
-            if (shootingTime <= 0)
-            {  
-                shootingTime = shootingDelay;
-                anim.SetTrigger("Attack");
-            }
+        if (Input.GetKeyDown(KeyCode.G) && shootingTime <= 0)
+        {
+            shootingTime = shootingRate;
+            anim.SetTrigger("Attack");
+            SpawnBullet();
         }
 
         shootingTime -= Time.deltaTime;

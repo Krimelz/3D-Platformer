@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     public Rigidbody rbody;
     void Start()
     {
-        rbody.AddForce(transform.forward * power, ForceMode.VelocityChange);
+        rbody.AddForce(transform.right * power, ForceMode.VelocityChange);
         Destroy(gameObject, 5f);
     }
 
@@ -17,9 +17,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            collision.collider.GetComponent<IEnemy>().TakeDamage(damage);
+            collision.collider.GetComponent<EnemyController>().TakeDamage(damage);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 }

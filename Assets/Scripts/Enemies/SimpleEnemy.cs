@@ -1,91 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class SimpleEnemy : MonoBehaviour, IEnemy
+[RequireComponent(typeof(EnemyController))]
+public class SimpleEnemy : MonoBehaviour
 {
-    public int health;
-    public float movementSpeed;
-    public float lookRadius;
-    public int attackDamage;
-    public float attackDistance;
-    public float attackDelay;
-
-    private GameObject player;
-    private Rigidbody rbody;
-    private float distanceToPlayer;
-    private float attackTime;
+    [SerializeField]
+    public EnemyController enemyController;
+    private RaycastHit hit;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        rbody = GetComponent<Rigidbody>();
-        attackTime = attackDelay;
-    }
-
-    void Update()
-    {
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        Attack();
+        enemyController = GetComponent<EnemyController>();
     }
 
     void FixedUpdate()
     {
-        Move();
-    }
-
-    public void Attack()
-    {
-        if (distanceToPlayer <= attackDistance)
+        if (Physics.SphereCast(transform.position, 1f, transform.right, out hit, enemyController.lookDistance, enemyController.enemyLayer))
         {
-            // Play attack animation
-            if (attackTime <= 0)
+            if (hit.collider.CompareTag("Player"))
             {
-                OnAttacked();
-                attackTime = attackDelay;
+                if (hit.distance <= enemyController.attackDistance)
+                {
+                    enemyController.Attack();
+                }
+                else if (hit.distance <= enemyController.lookDistance)
+                {
+                    enemyController.Move(transform.right);
+                }
             }
-
-            attackTime -= Time.deltaTime;
         }
-    }
-
-    // TODO: Call when attack animation end
-    public void OnAttacked()
-    {
-        player.GetComponent<PlayerController>().TakeDamage(attackDamage);
-    }
-
-    public void Move()
-    {
-        if (distanceToPlayer <= lookRadius && distanceToPlayer >= attackDistance)
-        {
-            int dir = transform.position.x > player.transform.position.x ? -1 : 1;
-            Vector3 movement = new Vector3(dir * movementSpeed * Time.fixedDeltaTime, 0f, 0f);
-            rbody.velocity = movement;
-        }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void Die()
-    {
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.DrawWireSphere(transform.position, enemyController.lookDistance);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
+        Gizmos.DrawWireSphere(transform.position, enemyController.attackDistance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, transform.right * enemyController.lookDistance);
+        Gizmos.DrawWireSphere(transform.position + transform.right * enemyController.lookDistance, 1f);
     }
 }
