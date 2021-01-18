@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEnemy
 {
     public static Action<int> healthUpdate;
 
@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
         rbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerSounds = GetComponent<AudioSource>();
-        EnemyController.attackPlayer += TakeDamage;
         shootingTime = shootingRate;
     }
 
@@ -67,6 +66,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         // TODO: fix takeoff when run on slopes
+
         movementDirectionX = Input.GetAxisRaw("Horizontal");
 
         if (movementDirectionX != 0)

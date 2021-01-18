@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public enum Tag
+    {
+        Enemy,
+        Player
+    }
+
+    public new Tag tag;
     public int damage;
     public float power;
     public Rigidbody rbody;
@@ -15,9 +22,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
+        if (collision.collider.CompareTag(tag.ToString()))
         {
-            collision.collider.GetComponent<EnemyController>().TakeDamage(damage);
+            Debug.Log(collision);
+            collision.collider.GetComponent<IEnemy>().TakeDamage(damage);
         }
 
         Destroy(gameObject, 0.1f);
