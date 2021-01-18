@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8499543140018688081}
   - component: {fileID: 4235668470349589028}
   - component: {fileID: 5658984246938631565}
-  m_Layer: 4
+  m_Layer: 7
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,9 +126,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d7290b74c9f043960463cfdb0b771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tag: 0
+  forceMode: 2
+  direction: 0
   damage: 20
   power: 50
-  rbody: {fileID: 4235668470349589028}
+  lifeTime: 2
+  bulletLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8936874707590627436
 GameObject:
   m_ObjectHideFlags: 0

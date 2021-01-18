@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 867598345826758445}
   - component: {fileID: 552966353611422970}
   - component: {fileID: 5901766065005243382}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MushroomBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,9 +98,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 1
+  forceMode: 2
+  direction: 0
   damage: 10
   power: 10
-  rbody: {fileID: 552966353611422970}
+  lifeTime: 2
+  bulletLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &552966353611422970
 Rigidbody:
   m_ObjectHideFlags: 0
