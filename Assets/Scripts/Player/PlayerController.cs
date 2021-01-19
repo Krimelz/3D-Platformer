@@ -93,6 +93,11 @@ public class PlayerController : MonoBehaviour, IEnemy
         }
     }
 
+    private void GroundCheck()
+    {
+
+    }
+
     private void Shoot()
     {
         if (Input.GetKey(KeyCode.W))
@@ -163,7 +168,7 @@ public class PlayerController : MonoBehaviour, IEnemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((1 << other.gameObject.layer) == groundLayer)
+        if ((1 << other.gameObject.layer & groundLayer) != 0)
         {
             isGrounded = true;
         }
