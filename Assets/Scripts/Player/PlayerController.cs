@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, IEnemy
     public float jumpForce = 400f;
     public int normalHealthAmount = 100;
     public int normalManaAmount = 100;
-    public int manaRegenerate = 1;
+    public int manaRegenerateAmount = 1;
     public float manaRegenerateRate = 1f;
     public int bulletCost = 20;
     public float shootingRate = 1f;
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour, IEnemy
         {
             if (mana < normalManaAmount) 
             {
-                ReplenishMana(manaRegenerate);
+                ReplenishMana(manaRegenerateAmount);
                 yield return new WaitForSeconds(manaRegenerateRate);
             }
             else

@@ -601,7 +601,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100
+    maxNumParticles: 25
     size3D: 1
     rotation3D: 1
     gravityModifier:
@@ -4875,7 +4875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4855477c638b41b425509d1d2af3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 8
   damage: 50
   duration: 1
   enemyLayer:

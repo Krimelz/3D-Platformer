@@ -221,8 +221,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 700
   jumpForce: 950
-  health: 100
-  shootingRate: 1
+  normalHealthAmount: 100
+  normalManaAmount: 100
+  manaRegenerate: 1
+  manaRegenerateRate: 0.5
+  bulletCost: 10
+  shootingRate: 0.75
   bulletPrefab: {fileID: 1678261795499696590, guid: 73ca9738c3be65e4299740ace14297c3, type: 3}
   bulletSpawnPoint: {fileID: 1361538104649097222}
   groundLayer:
