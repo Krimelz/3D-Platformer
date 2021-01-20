@@ -5,7 +5,7 @@ using UnityEngine;
 public class Slime : MonoBehaviour, IEnemy
 {
     public int health;
-    [Range(1f, 20f)]
+    [Range(0.1f, 20f)]
     public float movementSpeed = 1f;
     public Transform look;
     public float lookDistanceDown = 0.5f;

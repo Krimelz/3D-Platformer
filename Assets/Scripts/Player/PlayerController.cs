@@ -6,11 +6,16 @@ using System;
 public class PlayerController : MonoBehaviour, IEnemy
 {
     public static Action<int> healthUpdate;
+    public static Action<int> manaUpdate;
 
     [Header("Player stats")]
     public float movementSpeed = 500f;
     public float jumpForce = 400f;
-    public int health = 100;
+    public int normalHealthAmount = 100;
+    public int normalManaAmount = 100;
+    public int manaRegenerate = 1;
+    public float manaRegenerateRate = 1f;
+    public int bulletCost = 20;
     public float shootingRate = 1f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
@@ -25,6 +30,8 @@ public class PlayerController : MonoBehaviour, IEnemy
     private Rigidbody rbody;
     private Animator anim;
     private AudioSource playerSounds;
+    private int health;
+    private int mana;
     private float movementDirectionX;
     private float shootingTime;
     private bool isGrounded = false;
@@ -35,7 +42,12 @@ public class PlayerController : MonoBehaviour, IEnemy
         rbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerSounds = GetComponent<AudioSource>();
+
+        health = normalHealthAmount;
+        mana = normalManaAmount;
         shootingTime = shootingRate;
+
+        StartCoroutine(RegenerateMana());
     }
 
     void Update()
@@ -95,7 +107,7 @@ public class PlayerController : MonoBehaviour, IEnemy
 
     private void GroundCheck()
     {
-
+        //
     }
 
     private void Shoot()
@@ -113,10 +125,11 @@ public class PlayerController : MonoBehaviour, IEnemy
             bulletSpawnPoint.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
-        if (Input.GetKeyDown(KeyCode.G) && shootingTime <= 0)
+        if (Input.GetKeyDown(KeyCode.G) && shootingTime <= 0 && mana >= bulletCost)
         {
             shootingTime = shootingRate;
             anim.SetTrigger("Attack");
+            CastBullet(bulletCost);
             SpawnBullet();
         }
 
@@ -127,6 +140,22 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         PlayShootSound();
+    }
+
+    private IEnumerator RegenerateMana()
+    {
+        while (true)
+        {
+            if (mana < normalManaAmount) 
+            {
+                ReplenishMana(manaRegenerate);
+                yield return new WaitForSeconds(manaRegenerateRate);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -141,6 +170,30 @@ public class PlayerController : MonoBehaviour, IEnemy
         }
 
         healthUpdate?.Invoke(health);
+    }
+
+    private void CastBullet(int cost)
+    {
+        mana -= cost;
+
+        if (mana <= 0)
+        {
+            mana = 0;
+        }
+
+        manaUpdate?.Invoke(mana);
+    }
+
+    private void ReplenishMana(int manaAmount)
+    {
+        mana += manaAmount;
+
+        if (mana > normalManaAmount)
+        {
+            mana = normalManaAmount;
+        }
+
+        manaUpdate?.Invoke(mana);
     }
 
     private void Die()

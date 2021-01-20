@@ -13,11 +13,6 @@ public class Flower : MonoBehaviour, IEnemy
 
     private float shootingTime;
 
-    private void Start()
-    {
-        shootingTime = shootingRate;
-    }
-
     void FixedUpdate()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, lookRadius, enemyLayer);
