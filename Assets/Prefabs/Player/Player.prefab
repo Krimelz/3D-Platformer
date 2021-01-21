@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 700
-  jumpForce: 1050
+  jumpForce: 1850
   normalHealthAmount: 100
   normalManaAmount: 100
   manaRegenerateAmount: 1

@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
             entities.Remove(entity);
         }
 
-        if (entities.Count == 0)
+        if (entities.Count == 0) // <-----
         {
             Entity.updateLevelManager -= UpdateEntities;
             SceneManager.LoadScene(nextScene);

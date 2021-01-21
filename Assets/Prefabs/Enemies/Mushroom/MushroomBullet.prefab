@@ -102,7 +102,7 @@ MonoBehaviour:
   direction: 0
   damage: 10
   power: 10
-  lifeTime: 2
+  lifeTime: 5
   bulletLayer:
     serializedVersion: 2
     m_Bits: 128
