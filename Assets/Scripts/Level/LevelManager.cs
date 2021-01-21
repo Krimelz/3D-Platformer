@@ -64,6 +64,7 @@ public class LevelManager : MonoBehaviour
 
         if (entities.Count == 0)
         {
+            Entity.updateLevelManager -= UpdateEntities;
             SceneManager.LoadScene(nextScene);
         }
     }

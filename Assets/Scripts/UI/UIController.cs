@@ -24,4 +24,10 @@ public class UIController : MonoBehaviour
     {
         manaText.text = mana.ToString();
     }
+
+    private void OnDestroy()
+    {
+        PlayerController.healthUpdate -= UpdateHealth;
+        PlayerController.manaUpdate -= UpdateMana;
+    }
 }

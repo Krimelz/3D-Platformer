@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour, IEnemy
 
     private Rigidbody rbody;
     private Animator anim;
-    private AudioSource playerSounds;
     private int health;
     private int mana;
     private float movementDirectionX;
@@ -43,7 +42,6 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        playerSounds = GetComponent<AudioSource>();
 
         health = normalHealthAmount;
         mana = normalManaAmount;
