@@ -220,10 +220,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 700
-  jumpForce: 950
+  jumpForce: 1050
   normalHealthAmount: 100
   normalManaAmount: 100
-  manaRegenerate: 1
+  manaRegenerateAmount: 1
   manaRegenerateRate: 0.5
   bulletCost: 10
   shootingRate: 0.75
@@ -232,10 +232,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
-  moveClip: {fileID: 8300000, guid: 9b37fd22fb87ec44ea04dcad57a85b4b, type: 3}
-  jumpClip: {fileID: 8300000, guid: 42b991c6c41c63a41b5bdc29a2688835, type: 3}
-  landingClip: {fileID: 8300000, guid: ec75dfdd89ca02c4899e7be39bcf1774, type: 3}
-  shootClip: {fileID: 8300000, guid: f04fbd61f6738c946b008b3bebeef302, type: 3}
 --- !u!1 &2910321797811434697
 GameObject:
   m_ObjectHideFlags: 0
