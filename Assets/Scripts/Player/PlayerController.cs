@@ -5,8 +5,14 @@ using System;
 
 public class PlayerController : MonoBehaviour, IEnemy
 {
+    #region UI Actions
+
     public static Action<int> healthUpdate;
     public static Action<int> manaUpdate;
+
+    #endregion
+
+    #region Player stats
 
     [Header("Player stats")]
     public float movementSpeed = 500f;
@@ -20,12 +26,8 @@ public class PlayerController : MonoBehaviour, IEnemy
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public LayerMask groundLayer;
-    [Space]
-    [Header("Player sounds")]
-    public AudioClip moveClip;
-    public AudioClip jumpClip;
-    public AudioClip landingClip;
-    public AudioClip shootClip;
+
+    #endregion
 
     private Rigidbody rbody;
     private Animator anim;
@@ -105,10 +107,12 @@ public class PlayerController : MonoBehaviour, IEnemy
         }
     }
 
+    /*
     private void GroundCheck()
     {
         //
     }
+    */
 
     private void Shoot()
     {
@@ -139,7 +143,6 @@ public class PlayerController : MonoBehaviour, IEnemy
     public void SpawnBullet()
     {
         Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        PlayShootSound();
     }
 
     private IEnumerator RegenerateMana()
@@ -200,23 +203,6 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         anim.SetBool("Die", true);
         isDead = true;
-    }
-
-    public void PlayMoveSound()
-    {
-        playerSounds.clip = moveClip;
-        playerSounds.Play();
-    }
-
-    public void PlayJumpSound()
-    {
-        playerSounds.clip = jumpClip;
-        playerSounds.Play();
-    }
-
-    public void PlayShootSound()
-    {
-        playerSounds.PlayOneShot(shootClip);
     }
 
     private void OnTriggerEnter(Collider other)
