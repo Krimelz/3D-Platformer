@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
-    public string nextScene;
+    public static Action<bool, bool> enableTasks;
+    public static Action levelPassed;
+
     public bool enemyChecker;
     public bool keyChecker;
-    public bool totemChecker;
-    public bool bossChecker;
 
     [SerializeField]
     private List<Entity> entities = new List<Entity>();
@@ -27,17 +28,9 @@ public class LevelManager : MonoBehaviour
             entities.AddRange(FindObjectsOfType<Entity>().Where(o => o.type == Entity.EntityType.Key));
         }
 
-        if (keyChecker)
-        {
-            entities.AddRange(FindObjectsOfType<Entity>().Where(o => o.type == Entity.EntityType.Totem));
-        }
-
-        if (bossChecker)
-        {
-            entities.AddRange(FindObjectsOfType<Entity>().Where(o => o.type == Entity.EntityType.Boss));
-        }
-
         Entity.updateLevelManager += UpdateEntities;
+
+        enableTasks?.Invoke(enemyChecker, keyChecker);
     }
 
     private void UpdateEntities(Entity entity)
@@ -52,20 +45,14 @@ public class LevelManager : MonoBehaviour
             entities.Remove(entity);
         }
 
-        if (totemChecker && entity.type == Entity.EntityType.Totem)
+        if (entities.Count == 0)
         {
-            entities.Remove(entity);
+            levelPassed?.Invoke();
         }
+    }
 
-        if (bossChecker && entity.type == Entity.EntityType.Boss)
-        {
-            entities.Remove(entity);
-        }
-
-        if (entities.Count == 0) // <-----
-        {
-            Entity.updateLevelManager -= UpdateEntities;
-            SceneManager.LoadScene(nextScene);
-        }
+    private void OnDestroy()
+    {
+        Entity.updateLevelManager -= UpdateEntities;
     }
 }

@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour, IEnemy
     #region UI Actions
 
     public static Action<int> healthUpdate;
-    public static Action<int> manaUpdate;
+    public static Action<int> manaUpdate;   
+    public static Action death;
 
     #endregion
 
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         anim.SetBool("Die", true);
         isDead = true;
+        death?.Invoke();
     }
 
     private void OnDrawGizmos()
