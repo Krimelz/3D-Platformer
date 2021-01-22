@@ -129,7 +129,7 @@ MonoBehaviour:
   forceMode: 1
   direction: 1
   damage: 5
-  power: 20
+  power: 40
   lifeTime: 5
   bulletLayer:
     serializedVersion: 2

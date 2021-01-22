@@ -96,7 +96,7 @@ MonoBehaviour:
   movementSpeed: 300
   look: {fileID: 4165336662857821187}
   lookDistance: 2
-  direction: 0
+  direction: 1
   explosionPrefab: {fileID: 2834890968380295581, guid: 81fcb2f9c17386741a13bdea10142b11, type: 3}
   enemyLayer:
     serializedVersion: 2
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fef9ee308508284e8a6092cffd40d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
 --- !u!1001 &5851764135392302669
 PrefabInstance:
   m_ObjectHideFlags: 0

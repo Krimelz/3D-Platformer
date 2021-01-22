@@ -26,13 +26,18 @@ public class Bomberman : MonoBehaviour, IEnemy
     void Start()
     {
         rbody = GetComponent<Rigidbody>();
+
+        if (direction == Direction.Left)
+        {
+            Flip();
+        }
     }
 
     void FixedUpdate()  
     {
         if (Physics.SphereCast(look.position, 1f, look.right, out hit, lookDistance))
         {
-            if ((1 << hit.collider.gameObject.layer) == groundLayer)
+            if ((1 << hit.collider.gameObject.layer & groundLayer) != 0)
             {
                 Flip();
             }
@@ -55,8 +60,6 @@ public class Bomberman : MonoBehaviour, IEnemy
 
     public void TakeDamage(int damage)
     {
-        // TODO: Play hit animation
-
         health -= damage;
 
         if (health <= 0)

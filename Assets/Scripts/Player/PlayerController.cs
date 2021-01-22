@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour, IEnemy
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public LayerMask groundLayer;
+    public Transform groundCheckPoint;
+    public float groundCheckRayLength;
+    public float groundCheckSphereRadius;
 
     #endregion
 
@@ -35,7 +38,6 @@ public class PlayerController : MonoBehaviour, IEnemy
     private int mana;
     private float movementDirectionX;
     private float shootingTime;
-    private bool isGrounded = false;
     private bool isDead = false;
 
     void Start()
@@ -77,8 +79,6 @@ public class PlayerController : MonoBehaviour, IEnemy
 
     private void Move()
     {
-        // TODO: fix takeoff when run on slopes
-
         movementDirectionX = Input.GetAxisRaw("Horizontal");
 
         if (movementDirectionX != 0)
@@ -97,20 +97,18 @@ public class PlayerController : MonoBehaviour, IEnemy
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck())
         {
-            anim.SetBool("Jump", true);
             rbody.AddForce(Vector3.up * jumpForce);
-            isGrounded = false;
         }
     }
 
-    /*
-    private void GroundCheck()
+    private bool GroundCheck()
     {
-        //
+        Ray ray = new Ray(groundCheckPoint.position, -transform.up);
+        
+        return Physics.SphereCast(ray, groundCheckSphereRadius, groundCheckRayLength, groundLayer);
     }
-    */
 
     private void Shoot()
     {
@@ -203,16 +201,10 @@ public class PlayerController : MonoBehaviour, IEnemy
         isDead = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmos()
     {
-        if ((1 << other.gameObject.layer & groundLayer) != 0)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-            anim.SetBool("Jump", false);
-        }
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(groundCheckPoint.position, groundCheckPoint.position - transform.up * groundCheckRayLength);
+        Gizmos.DrawWireSphere(groundCheckPoint.position - transform.up * groundCheckRayLength, groundCheckSphereRadius);
     }
 }

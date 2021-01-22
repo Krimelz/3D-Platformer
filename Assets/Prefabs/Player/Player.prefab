@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1911654359322378695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4501113037303432020}
+  m_Layer: 0
+  m_Name: GroundCheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4501113037303432020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911654359322378695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.525, z: 0}
+  m_LocalScale: {x: 0.5555556, y: 0.5555556, z: 0.5555556}
+  m_Children: []
+  m_Father: {fileID: 4736508900374739333}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2486096091702516526
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,7 +71,6 @@ GameObject:
   - component: {fileID: 4736508900374739333}
   - component: {fileID: 5572367184763061035}
   - component: {fileID: 7797932164410172441}
-  - component: {fileID: 6528958996983448488}
   - component: {fileID: 7509481782527158467}
   - component: {fileID: 713213399748788262}
   m_Layer: 6
@@ -65,6 +94,7 @@ Transform:
   - {fileID: 2381993688927644949}
   - {fileID: 3970235969612783956}
   - {fileID: 1361538104649097222}
+  - {fileID: 4501113037303432020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,19 +128,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!135 &6528958996983448488
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2589118973512688078}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!82 &7509481782527158467
 AudioSource:
   m_ObjectHideFlags: 0
@@ -232,6 +249,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
+  groundCheckPoint: {fileID: 4501113037303432020}
+  groundCheckRayLength: 0.5
+  groundCheckSphereRadius: 0.6
 --- !u!1 &2910321797811434697
 GameObject:
   m_ObjectHideFlags: 0
