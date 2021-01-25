@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+
         PlayerAnimations.shooting += SpawnBullet;
 
         health = normalHealthAmount;
@@ -210,5 +211,10 @@ public class PlayerController : MonoBehaviour, IEnemy
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(groundCheckPoint.position, groundCheckPoint.position - transform.up * groundCheckRayLength);
         Gizmos.DrawWireSphere(groundCheckPoint.position - transform.up * groundCheckRayLength, groundCheckSphereRadius);
+    }
+
+    private void OnDestroy()
+    {
+        PlayerAnimations.shooting -= SpawnBullet;
     }
 }

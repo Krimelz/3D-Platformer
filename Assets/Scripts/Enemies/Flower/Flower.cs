@@ -76,4 +76,9 @@ public class Flower : MonoBehaviour, IEnemy
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
+
+    private void OnDestroy()
+    {
+        FlowerAnimations.shooting -= SpawnBullet;
+    }
 }

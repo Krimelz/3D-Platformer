@@ -72,4 +72,9 @@ public class Mushroom : MonoBehaviour, IEnemy
         Gizmos.DrawRay(look.position, look.right * lookDistance);
         Gizmos.DrawWireSphere(look.position + look.right * lookDistance, 1f);
     }
+
+    private void OnDestroy()
+    {
+        MushroomAnimations.shooting -= SpawnBullet;
+    }
 }
