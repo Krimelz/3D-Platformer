@@ -15,6 +15,13 @@ public class Mushroom : MonoBehaviour, IEnemy
 
     private RaycastHit hit;
     private float shootingTime;
+    private Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+        MushroomAnimations.shooting += SpawnBullet;
+    }
 
     void FixedUpdate()
     {
@@ -27,13 +34,11 @@ public class Mushroom : MonoBehaviour, IEnemy
         }
     }
 
-    public void Shoot()
+    private void Shoot()
     {
-        // TODO: Play attack animation
-
         if (shootingTime <= 0)
         {
-            SpawnBullet();
+            anim.SetTrigger("Shooting");
             shootingTime = shootingRate;
         }
 
@@ -47,8 +52,6 @@ public class Mushroom : MonoBehaviour, IEnemy
 
     public void TakeDamage(int damage)
     {
-        // TODO: Play hit animation
-
         health -= damage;
 
         if (health <= 0)

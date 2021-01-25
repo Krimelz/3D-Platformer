@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour, IEnemy
     {
         rbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        PlayerAnimations.shooting += SpawnBullet;
 
         health = normalHealthAmount;
         mana = normalManaAmount;
@@ -130,15 +131,16 @@ public class PlayerController : MonoBehaviour, IEnemy
         {
             shootingTime = shootingRate;
             anim.SetTrigger("Attack");
-            CastBullet(bulletCost);
-            SpawnBullet();
+            //CastBullet(bulletCost);
+            //SpawnBullet();
         }
 
         shootingTime -= Time.deltaTime;
     }
 
-    public void SpawnBullet()
+    private void SpawnBullet()
     {
+        CastBullet(bulletCost);
         Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
 

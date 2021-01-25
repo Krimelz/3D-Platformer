@@ -1,29 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6753460645124968094
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
-  m_Name: WhiteBalance
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  temperature:
-    m_OverrideState: 1
-    m_Value: 11
-    min: -100
-    max: 100
-  tint:
-    m_OverrideState: 1
-    m_Value: 1
-    min: -100
-    max: 100
 --- !u!114 &-3384412549285705268
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -134,9 +110,7 @@ MonoBehaviour:
   - {fileID: 6681363587830314615}
   - {fileID: -3384412549285705268}
   - {fileID: -1181310385540876744}
-  - {fileID: -6753460645124968094}
   - {fileID: 8562618475625471090}
-  - {fileID: 7106820493680245055}
 --- !u!114 &6681363587830314615
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -154,37 +128,6 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
---- !u!114 &7106820493680245055
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
-  m_Name: SplitToning
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  shadows:
-    m_OverrideState: 1
-    m_Value: {r: 0.5660378, g: 0.5372055, b: 0.47258815, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
-  highlights:
-    m_OverrideState: 1
-    m_Value: {r: 0.5283019, g: 0.5118526, b: 0.41616234, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
-  balance:
-    m_OverrideState: 1
-    m_Value: -100
-    min: -100
-    max: 100
 --- !u!114 &8562618475625471090
 MonoBehaviour:
   m_ObjectHideFlags: 3

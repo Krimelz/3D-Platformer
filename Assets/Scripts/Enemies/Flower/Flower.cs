@@ -13,6 +13,13 @@ public class Flower : MonoBehaviour, IEnemy
     public LayerMask enemyLayer;
 
     private float shootingTime;
+    private Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+        FlowerAnimations.shooting += SpawnBullet;
+    }
 
     void FixedUpdate()
     {
@@ -32,10 +39,7 @@ public class Flower : MonoBehaviour, IEnemy
     {
         if (shootingTime <= 0)
         {
-            for (int i = 0; i < bulletSpawnPoints.Length; i++)
-            {
-                SpawnBullet(i);
-            }
+            anim.SetTrigger("Shooting");
 
             shootingTime = shootingRate;
         }
@@ -43,9 +47,12 @@ public class Flower : MonoBehaviour, IEnemy
         shootingTime -= Time.fixedDeltaTime;
     }
 
-    private void SpawnBullet(int spawnPointNumber)
+    private void SpawnBullet()
     {
-        Instantiate(bulletPrefab, bulletSpawnPoints[spawnPointNumber].position, bulletSpawnPoints[spawnPointNumber].rotation);
+        for (int i = 0; i < bulletSpawnPoints.Length; i++)
+        {
+            Instantiate(bulletPrefab, bulletSpawnPoints[i].position, bulletSpawnPoints[i].rotation);
+        }
     }
 
     public void TakeDamage(int damage)

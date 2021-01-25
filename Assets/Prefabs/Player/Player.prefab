@@ -46,6 +46,18 @@ MonoBehaviour:
   moveClip: {fileID: 8300000, guid: 9b37fd22fb87ec44ea04dcad57a85b4b, type: 3}
   jumpClip: {fileID: 8300000, guid: 42b991c6c41c63a41b5bdc29a2688835, type: 3}
   shootingClip: {fileID: 8300000, guid: f04fbd61f6738c946b008b3bebeef302, type: 3}
+--- !u!114 &3196130135064065902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2381993688928006453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c7c6268e64497468d305f555d4b392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2486096091702516526
 GameObject:
   m_ObjectHideFlags: 0
