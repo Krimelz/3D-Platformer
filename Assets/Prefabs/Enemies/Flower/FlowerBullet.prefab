@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3831940699636650272}
   - component: {fileID: -621218968938321128}
   - component: {fileID: -5480768478531013407}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FlowerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,4 +133,4 @@ MonoBehaviour:
   lifeTime: 5
   bulletLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
